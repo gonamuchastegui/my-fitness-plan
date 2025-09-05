@@ -60,17 +60,18 @@ export default function ExerciseCard({ exercise, exerciseNumber, onSetComplete }
         {/* Exercise Image */}
         <div className="lg:w-48 flex-shrink-0">
           <div className="relative w-full h-32 lg:h-36 bg-gray-100 rounded-lg overflow-hidden">
-            {exercise.imageUrl.includes('/api/placeholder') ? (
-              <div className="w-full h-full flex items-center justify-center">
-                <ImageIcon className="w-12 h-12 text-gray-400" />
-              </div>
-            ) : (
+            {exercise.imageUrl && exercise.imageUrl !== '/api/placeholder' ? (
               <Image
                 src={exercise.imageUrl}
                 alt={exercise.name}
                 fill
                 className="object-cover"
+                unoptimized={exercise.imageUrl.endsWith('.gif')}
               />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <ImageIcon className="w-12 h-12 text-gray-400" />
+              </div>
             )}
           </div>
         </div>
