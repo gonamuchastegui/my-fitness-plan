@@ -2,11 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Target, History, TrendingUp, Menu, X } from 'lucide-react'
+import { Home, Target, History, Trophy, Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import AuthNav from './AuthNav'
 
 const navigation = [
   { name: 'Home', href: '/', icon: Home },
+  { name: 'History', href: '/history', icon: History },
+  { name: 'Best Scores', href: '/best-scores', icon: Trophy },
 ]
 
 export default function Navigation() {
@@ -47,18 +50,23 @@ export default function Navigation() {
             })}
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-        </div>
+           {/* Auth Navigation */}
+           <div className="flex items-center">
+             <AuthNav />
+           </div>
+
+           {/* Mobile menu button */}
+           <button
+             className="md:hidden p-2"
+             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+           >
+             {mobileMenuOpen ? (
+               <X className="w-6 h-6" />
+             ) : (
+               <Menu className="w-6 h-6" />
+             )}
+           </button>
+         </div>
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (

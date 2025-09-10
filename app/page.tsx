@@ -1,5 +1,7 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Target, History, Calendar, Dumbbell, Clock, Play, TrendingUp } from 'lucide-react'
 import { sheetsAPI } from '@/lib/sheets'
@@ -39,6 +41,8 @@ interface Exercise {
 }
 
 export default function HomePage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [plans, setPlans] = useState<WorkoutPlan[]>([])
   const [history, setHistory] = useState<WorkoutLog[]>([])
   const [exercises, setExercises] = useState<Exercise[]>([])
@@ -62,8 +66,18 @@ export default function HomePage() {
     return `${year}-${month}-${day}`
   }
 
+  // Check authentication on mount
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin')
+      return
+    }
+  }, [status, router])
+
   // Fetch data on component mount
   useEffect(() => {
+    if (status !== 'authenticated') return
+
     const fetchData = async () => {
       try {
         setLoading(true)
@@ -110,7 +124,7 @@ export default function HomePage() {
     }
 
     fetchData()
-  }, [])
+  }, [status])
 
   const handleStartWorkout = async (plan: WorkoutPlan) => {
     setSelectedPlan(plan)
@@ -210,7 +224,7 @@ export default function HomePage() {
     setCompletedSets({})
   }
 
-  if (loading) {
+  if (status === 'loading' || loading) {
     return (
       <div className="space-y-8">
         <div className="text-center py-12">
@@ -219,6 +233,10 @@ export default function HomePage() {
         </div>
       </div>
     )
+  }
+
+  if (status === 'unauthenticated') {
+    return null
   }
 
   // If a plan is selected, show the workout view

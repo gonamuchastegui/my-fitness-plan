@@ -1,4 +1,6 @@
 import './globals.css'
+import Providers from '@/components/Providers'
+import ClientLayout from '@/components/ClientLayout'
 
 export const metadata = {
   title: 'My Fitness Plan',
@@ -12,7 +14,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </Providers>
+      </body>
     </html>
   )
 }
