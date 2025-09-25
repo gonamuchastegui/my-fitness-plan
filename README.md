@@ -5,7 +5,7 @@ Una aplicación de fitness simplificada que te permite elegir rutinas de entrena
 ## Características
 
 - **Vista Unificada**: My Plans y History en una sola página principal
-- **Selección de Rutinas**: Elige qué rutina quieres hacer desde la vista principal
+- **Selección de Rutinas**: Elige qué rutina quieres hacer desde la vista principal. Veo las rutinas que creo en el back. 
 - **Seguimiento de Progreso**: Ve tu historial de entrenamientos ordenado por última actividad
 - **Mejores Marcas**: Visualiza tus mejores pesos y repeticiones para cada ejercicio
 - **Sin Programación**: Tú decides cuándo hacer cada rutina
